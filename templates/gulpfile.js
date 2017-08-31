@@ -30,7 +30,7 @@ gulp.task('html', function () {
 });
 
 // 编译压缩less
-gulp.task('styles', function () {
+gulp.task('less', function () {
     return gulp.src('src/css/*.less')
         .pipe(less())
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
@@ -41,17 +41,30 @@ gulp.task('styles', function () {
 });
 
 
-// // 编译压缩sass
-// gulp.task('styles', function () {
-//     return gulp.src('src/css/*.scss')
-//         .pipe(sass())
-//         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-//         .pipe(gulp.dest('dist/css'))
-//         .pipe(rename({suffix: '.min'}))
-//         .pipe(minifycss())
-//         .pipe(gulp.dest('dist/css'));
-// });
+// 编译压缩sass
+gulp.task('sass', function () {
+    return gulp.src('src/css/*.scss')
+        .pipe(sass())
+        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+        .pipe(gulp.dest('dist/css'))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(minifycss())
+        .pipe(gulp.dest('dist/css'));
+});
 
+// 压缩css
+gulp.task('css', function () {
+    return gulp.src('src/css/*.css')
+        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+        .pipe(gulp.dest('dist/css'))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(minifycss())
+        .pipe(gulp.dest('dist/css'));
+});
+
+gulp.task('styles', function () {
+    return gulp.run(['less', 'sass', 'css']);
+});
 
 //用webpack处理js 顺便插入到相应html中，所以需要html任务执行完毕
 gulp.task('scripts', ['html', 'styles'], function (callback) {
@@ -79,8 +92,14 @@ gulp.task('lib', function () {
         .pipe(gulp.dest('dist/lib'));
 });
 
+// src下的文件 转移
+gulp.task('src', function () {
+    return gulp.src('src/*')
+        .pipe(gulp.dest('dist'));
+});
+
 //默认任务
-gulp.task('default', ['html', 'styles', 'scripts', 'images', 'fonts', 'lib'], function () {
+gulp.task('default', ['html', 'styles', 'scripts', 'images', 'fonts', 'lib','src'], function () {
 
     //初始化browserSync
     browserSync.init({
@@ -94,6 +113,7 @@ gulp.task('default', ['html', 'styles', 'scripts', 'images', 'fonts', 'lib'], fu
     gulp.watch('src/img/**/*', ['images']);
     gulp.watch('src/app/**/*', ['scripts']);
     gulp.watch('src/js/**/*', ['scripts']);
+    gulp.watch('src/*', ['src']);
 
     //监听当dist文件夹下任何文件发生变化，则自动刷新浏览器
     gulp.watch('./dist/**', function () {
@@ -104,5 +124,5 @@ gulp.task('default', ['html', 'styles', 'scripts', 'images', 'fonts', 'lib'], fu
 
 
 gulp.task('build', ['clean'], function () {
-    gulp.run('html', 'styles', 'scripts', 'images', 'fonts', 'lib');
+    gulp.run('html', 'styles', 'scripts', 'images', 'fonts', 'lib','src');
 });
