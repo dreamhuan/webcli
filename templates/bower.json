@@ -1,9 +1,9 @@
 {
-  "name": "gulp-webpack-study",
-  "description": "gulp with webpack",
+  "name": "default",
+  "description": "default",
   "main": "index.js",
   "authors": [
-    "dreamhuan <fu_kaiqi@qq.com>"
+    "default"
   ],
   "license": "ISC",
   "homepage": "",
