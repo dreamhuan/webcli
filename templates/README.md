@@ -11,7 +11,7 @@ github: [gulp-webpack-study](https://github.com/dreamhuan/gulp-webpack-study)
   
 ### 开发说明
 1. HTML文件放在src/app,支持静态引入@@include("./xxx/xxx.html")见index.html的做法
-1. 样式文件放在src/css,支持less,sass,css,less和sass会自动编译,css会自动添加浏览器前缀以及代码压缩
+1. 样式文件放在src/css,支持less,css,less会自动编译,css会自动添加浏览器前缀以及代码压缩
 1. 需要自己在html引入文件路径写`编译完后`的路径"../css/xxx","../js/xxx","../lib/xxx/xxx"
 1. 第三方库的话能用bower就用bower安装，装在src/lib/bower下，没有bower的就下载完放到src/lib下，然后正常引入就好，注意顺序
 
