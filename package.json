@@ -1,14 +1,15 @@
 {
   "name": "webcli",
   "description": "The first cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "toolkit",
     "cli"
   ],
   "files": [
     "lib",
-    "bin"
+    "bin",
+    "templates"
   ],
   "bin": {
     "webcli": "./bin/webcli.js"
